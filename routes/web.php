@@ -20,4 +20,5 @@ $router->group([
     "namespace" => "Api"
 ], function ($router) {
     $router->get('/', ['uses' => 'PollController@index']);
+    $router->post('/', ['uses' => 'PollController@store']);
 });

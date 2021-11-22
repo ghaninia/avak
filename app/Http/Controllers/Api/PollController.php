@@ -2,28 +2,46 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Core\Services\PollService;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Core\Services\Poll\PollServiceInterface;
 use App\Http\Resources\Question\QuestionCollection;
 
 class PollController extends Controller
 {
-    protected $poolService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public PollServiceInterface $pollService)
     {
-        $this->poolService = new PollService;
     }
 
     public function index()
     {
         return new QuestionCollection(
-            $this->poolService->getRandomQuestions()
+            $this->pollService->getRandomQuestions()
         );
+    }
+
+    public function store(Request $request)
+    {
+        $pollValidations = $this->pollService->pollRequestValidations($request);
+        $this->validate(...$pollValidations);
+
+        $result = $this->pollService->saveNewPollRequest($request);
+
+        return
+            $result ?
+            response()->json(
+                ["msg" => "اطلاعات با موفقیت ثبت شده است"],
+                200
+            ) :
+            response()->json(
+                ["msg" => "خطای غیرمنتظره در زمان ثبت اطلاعات به وجود آمده است"],
+                500
+            );
     }
 }
