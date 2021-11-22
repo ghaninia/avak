@@ -15,8 +15,10 @@ use App\Http\Controllers\Api\PollController;
 |
 */
 
+$router->get("/", ["uses" => "MainController@index"]);
+
 $router->group([
-    "prefix" => "api/pool" , 
+    "prefix" => "api/pool",
     "namespace" => "Api"
 ], function ($router) {
     $router->get('/', ['uses' => 'PollController@index']);
