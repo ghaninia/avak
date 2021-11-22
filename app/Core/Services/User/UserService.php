@@ -10,7 +10,8 @@ class UserService implements UserServiceInterface
     {
         return
             User::create([
-                "fullname", "mobile"
+                "fullname" => $data["fullname"], 
+                "mobile" => $data["mobile"], 
             ]);
     }
 }
