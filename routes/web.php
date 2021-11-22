@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Http\Controllers\Api\PollController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,6 +15,9 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group([
+    "prefix" => "api/pool" , 
+    "namespace" => "Api"
+], function ($router) {
+    $router->get('/', ['uses' => 'PollController@index']);
 });

@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupAnswersTable extends Migration
+class CreateUserAnswersTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'group_answers';
+    public $tableName = 'user_answers';
 
     /**
      * Run the migrations.
@@ -26,7 +26,7 @@ class CreateGroupAnswersTable extends Migration
             $table->unsignedBigInteger('group_question_id');
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('answer_id');
-            $table->timestamps() ;
+            $table->timestamps();
 
             $table->index("group_question_id");
             $table->index(["question_id"]);
